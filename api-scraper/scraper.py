@@ -10,26 +10,24 @@ end = 0
 update = 50
 delay = 5
 if(len(sys.argv)==3):
-    current=sys.argv[1]
-    end = sys.argv[2]
+    current=int(sys.argv[1])
+    end = int(sys.argv[2])
     update = 50
     delay = 5
 elif(len(sys.argv)==4):
-    current = sys.argv[1]
-    end = sys.argv[2]
-    update = sys.argv[3]
+    current = int(sys.argv[1])
+    end = int(sys.argv[2])
+    update = int(sys.argv[3])
     delay = 5
 elif(len(sys.argv)==5):
-    current = sys.argv[1]
-    end = sys.argv[2]
-    update = sys.argv[3]
-    delay = sys.argv[4]
+    current = int(sys.argv[1])
+    end = int(sys.argv[2])
+    update = int(sys.argv[3])
+    delay = int(sys.argv[4])
 else:
     print("Invalid number of arguments. Please try again.")
 
-print("before databse connection")
 db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
-print("after database connection")
 class Song(Model):
     name=CharField()
     artists=CharField()
@@ -41,11 +39,8 @@ class Song(Model):
 
     class Meta:
         database = db
-print("after class creation")
 #Song.create_table(True);
-print(current, "<", end, " is ", current<end)
 while (current < end):
-    print("at beginning of loop!")
     results = spotify.search(q='track:' + '', limit=end, offset=current, type='track')
     tracks = results['tracks']
     items = tracks['items']
