@@ -17,6 +17,5 @@ def generate():
 	return render_template('playlist.html', duration, genre)
 	
 	
-	
 if __name__== '__main__':
 	flur.run(debug=True)
