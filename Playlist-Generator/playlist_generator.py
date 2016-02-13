@@ -1,7 +1,7 @@
 import pymysql.cursors
 from peewee import *
 import sys
-import math
+import random
 #initialize data from front end
 genre = "rock"
 desired_length = 1.0
