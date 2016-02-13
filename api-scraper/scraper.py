@@ -5,7 +5,7 @@ spotify = spotipy.Spotify()
 songs = []
 artistGenres = {}
 
-db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
+db = pymysql.connect(host="localhost",user="root",password="M1ddl30ut!",db="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
 class Song(Model):
     name=CharField()
     artists=CharField()
@@ -17,9 +17,7 @@ class Song(Model):
 
     class Meta:
         database = db
-#Song.create_table();
-songtest = Song(name="test",artists="test testerson",album="the test album",popularity="50",duration="56",genres="heavy metal",url="test.com")
-print(songtest.save())
+db.create_tables(Song);
 results = spotify.search(q='track:' + '', limit=1, offset=0, type='track')
 tracks = results['tracks']
 items = tracks['items']
@@ -35,7 +33,7 @@ for track in items:
             artistGenres[track['artists'][0]['id']] += genre + ", "
         artistGenres[track['artists'][0]['id']] = artistGenres[track['artists'][0]['id']].rstrip(", ")
     songs.append({'name': track['name'], 'artists': artists, 'album': track['album']['name'], 'popularity': track['popularity'], 'duration': track['duration_ms'], 'genres': artistGenres[track['artists'][0]['id']], 'url': track['external_urls']['spotify']})
-for song in songs:
+for song in 
     print(song['name'])
     print(song['genres'])
     print("\n")
