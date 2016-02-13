@@ -41,5 +41,5 @@ db.close()
 def getURL(url)
 {
     identification = url[31:]
-    ids.append(identification) 
-    }
+    ids.append(identification)
+}
