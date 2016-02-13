@@ -5,12 +5,12 @@ spotify = spotipy.Spotify()
 songs = []
 artistGenres = {}
 
-db = pymysql.connect(host="162.243.5.44",user="root",password="M1ddl30ut!",db="flur",charset="utf8mb4_bin",cursorclass=pymysql.cursors.DictCursor)
+db = pymysql.connect(host="localhost",user="root",password="M1ddl30ut!",db="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
 class Song(Model):
     name=CharField()
     artists=CharField()
     album=CharField()
-    popularity=SmallIntegerField()
+    popularity=IntegerField()
     duration=BigIntegerField()
     genres=CharField()
     url=CharField()
@@ -26,7 +26,7 @@ for track in items:
     for artist in track['artists']:
         artists += artist['name'] + " && "
     artists = artists.rstrip(" && ")
-    if (not artistGenres.has_key(track['artists'][0]['id'])):
+    if (not track['artists'][0]['id'] in artistGenres):
         artistResult = spotify.artist(track['artists'][0]['uri'])
         artistGenres[track['artists'][0]['id']] = ""
         for genre in artistResult['genres']:
