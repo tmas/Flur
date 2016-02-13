@@ -27,8 +27,9 @@ elif(len(sys.argv)==5):
 else:
     print("Invalid number of arguments. Please try again.")
 
-
+print("before databse connection")
 db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
+print("after database connection")
 class Song(Model):
     name=CharField()
     artists=CharField()
@@ -40,6 +41,7 @@ class Song(Model):
 
     class Meta:
         database = db
+print("after class creation")
 #Song.create_table(True);
 while (current < end):
     print("at beginning of loop!")
