@@ -2,38 +2,30 @@ import spotipy
 from peewee import *
 import pymysql.cursors
 import time
+import sys
 spotify = spotipy.Spotify()
 artistGenres = {}
 current = 0
 end = 0
 update = 50
 delay = 5
-if(sys.argv==2)
-{
-    current=argv[1]
-    end = argv[2]
+if(len(sys.argv)==3):
+    current=int(sys.argv[1])
+    end = int(sys.argv[2])
     update = 50
     delay = 5
-    }
-else if(sys.argv==3)
-{
-    current = argv[1]
-    end = argv[2]
-    update = argv[3]
+elif(len(sys.argv)==4):
+    current = int(sys.argv[1])
+    end = int(sys.argv[2])
+    update = int(sys.argv[3])
     delay = 5
-    }
-else if(sys.argv==4)
-{
-    current = argv[1]
-    end = argv[2]
-    update = argv[3]
-    delay = argv[4]
-    }
-else
-{
-print("Invalid number of arguments. Please try again.")
-    }
-
+elif(len(sys.argv)==5):
+    current = int(sys.argv[1])
+    end = int(sys.argv[2])
+    update = int(sys.argv[3])
+    delay = int(sys.argv[4])
+else:
+    print("Invalid number of arguments. Please try again.")
 
 db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
 class Song(Model):
@@ -49,7 +41,7 @@ class Song(Model):
         database = db
 #Song.create_table(True);
 while (current < end):
-    results = spotify.search(q='track:' + '', limit=end, offset=current, type='track')
+    results = spotify.search(q='track:' + '', limit=update, offset=current, type='track')
     tracks = results['tracks']
     items = tracks['items']
     for track in items:
