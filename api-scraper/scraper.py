@@ -4,7 +4,7 @@ import pymysql.cursors
 import time
 spotify = spotipy.Spotify()
 artistGenres = {}
-n = 0
+n = 250
 
 db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf32_bin",cursorclass=pymysql.cursors.DictCursor)
 class Song(Model):
@@ -19,7 +19,7 @@ class Song(Model):
     class Meta:
         database = db
 #Song.create_table(True);
-while (n < 250):
+while (n < 500):
     results = spotify.search(q='track:' + '', limit=50, offset=n, type='track')
     tracks = results['tracks']
     items = tracks['items']
