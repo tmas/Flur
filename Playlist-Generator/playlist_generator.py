@@ -5,7 +5,7 @@ import MySQLdb
 genre = ""
 length = 0.0
 
-db = MySQLdb.connect("localhost", "testuser", "test123", "flur")
+db = MySQLdb.connect("localhost", "flur", "KirklandSignature", "flur")
 
 sql = "SELECT * FROM flur WHERE 'genre'= %s" % (genre)
 
