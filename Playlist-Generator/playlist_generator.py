@@ -7,7 +7,7 @@ length = 0.0
 
 db = MySQLdb.connect("localhost", "testuser", "test123", "flur")
 
-sql = "SELECT * FROM  WHERE 'genre'= %s" % \ (genre)
+sql = "SELECT * FROM  WHERE 'genre'= %s" % (genre)
 
 cursor = db.cursor()
 
