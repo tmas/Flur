@@ -9,21 +9,21 @@ current = 0
 end = 0
 update = 50
 delay = 5
-if(sys.argv==2):
-    current=argv[1]
-    end = argv[2]
+if(len(sys.argv)==2):
+    current=sys.argv[1]
+    end = sys.argv[2]
     update = 50
     delay = 5
-elif(sys.argv==3):
-    current = argv[1]
-    end = argv[2]
-    update = argv[3]
+elif(len(sys.argv)==3):
+    current = sys.argv[1]
+    end = sys.argv[2]
+    update = sys.argv[3]
     delay = 5
-elif(sys.argv==4):
-    current = argv[1]
-    end = argv[2]
-    update = argv[3]
-    delay = argv[4]
+elif(len(sys.argv)==4):
+    current = sys.argv[1]
+    end = sys.argv[2]
+    update = sys.argv[3]
+    delay = sys.argv[4]
 else:
     print("Invalid number of arguments. Please try again.")
 
