@@ -57,6 +57,7 @@ while (current < end):
                 artistGenres[track['artists'][0]['id']] += genre + ", "
             artistGenres[track['artists'][0]['id']] = artistGenres[track['artists'][0]['id']].rstrip(", ")
         songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
-        print("Appended ", songtest.save(), "songs! That's # ", current, ", going at ", float(current - start)/(time.time() - start_time), " songs per second!")
-        current += 1
+    current += update
+    print("Appended ", update, "songs!")
     time.sleep(delay)
+print("Appended ", current - start, "songs! That's # ", current, ", going at ", float(current - start)/(time.time() - start_time), " songs per second!")
