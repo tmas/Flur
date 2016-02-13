@@ -18,8 +18,6 @@ class Song(Model):
     class Meta:
         database = db
 Song.create_table(True);
-songtest = Song(name="test",artists="test testerson",album="the test album",popularity="50",duration="56",genres="heavy metal",url="test.com")
-print(songtest.save())
 results = spotify.search(q='track:' + '', limit=1, offset=0, type='track')
 tracks = results['tracks']
 items = tracks['items']
@@ -34,8 +32,10 @@ for track in items:
         for genre in artistResult['genres']:
             artistGenres[track['artists'][0]['id']] += genre + ", "
         artistGenres[track['artists'][0]['id']] = artistGenres[track['artists'][0]['id']].rstrip(", ")
-    songs.append({'name': track['name'], 'artists': artists, 'album': track['album']['name'], 'popularity': track['popularity'], 'duration': track['duration_ms'], 'genres': artistGenres[track['artists'][0]['id']], 'url': track['external_urls']['spotify']})
-for song in songs:
-    print(song['name'])
-    print(song['genres'])
-    print("\n")
+    songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
+    print("Appended ", songtest.save(), "songs!")
+    #songs.append({'name': track['name'], 'artists': artists, 'album': track['album']['name'], 'popularity': track['popularity'], 'duration': track['duration_ms'], 'genres': artistGenres[track['artists'][0]['id']], 'url': track['external_urls']['spotify']})
+#for song in songs:
+    #print(song['name'])
+    #print(song['genres'])
+    #print("\n")
