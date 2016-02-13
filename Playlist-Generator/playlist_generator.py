@@ -12,7 +12,7 @@ cursor = db.cursor()
 
 cursor.execute(sql)
 
-data = cursor.fetchone()
+data = cursor.fetchall()
 
 print(data)
 
