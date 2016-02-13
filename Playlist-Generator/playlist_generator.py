@@ -31,5 +31,6 @@ while (length < desired_length):
     if not data[rnd]['url'] in playlist:
         playlist.append(data[rnd]['url'])
         length += data[rnd]['duration']
-print(playlist);
+print("Songs: ", playlist);
+print("Duration: ", float(length)/3600000)
 db.close()
