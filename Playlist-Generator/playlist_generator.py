@@ -5,7 +5,7 @@ import MySQLdb
 genre = ""
 length = 0.0
 
-db = MySQLdb.connect("localhost", "flur", "KirklandSignature", "flur")
+db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
 
 sql = "SELECT * FROM flur WHERE 'genre'= %s" % (genre)
 
@@ -16,3 +16,5 @@ cursor.execute(sql)
 data = cursor.fetchone()
 
 print(data)
+
+db.close()
