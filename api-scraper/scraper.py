@@ -56,7 +56,12 @@ while (current < end):
             for genre in artistResult['genres']:
                 artistGenres[track['artists'][0]['id']] += genre + ", "
             artistGenres[track['artists'][0]['id']] = artistGenres[track['artists'][0]['id']].rstrip(", ")
-        songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
+        if not artistGenres == '':
+            songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
+            songtest.save();
+            print("saved song with artistGenres: ", artistGenres)
+        else:
+            print("didn't save song with artistGenres: ", artistGenres)
     current += update
     print("Appended ", update, "songs!")
     time.sleep(delay)
