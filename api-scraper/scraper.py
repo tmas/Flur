@@ -11,7 +11,7 @@ for track in items:
     for artist in track['artists']:
         artists += artist['name'] + " && "
     artists = artists.rstrip(" && ")
-    if (not artistGenres.has_key(track['artists'][0]['id'])):
+    if(not artistGenres.has_key(track['artists'][0]['id'])):
         artistResult = spotify.artist(track['artists'][0]['uri'])
         artistGenres[track['artists'][0]['id']] = ""
         for genre in artistResult['genres']:
@@ -19,6 +19,6 @@ for track in items:
         artistGenres[track['artists'][0]['id']] = artistGenres[track['artists'][0]['id']].rstrip(", ")
     songs.append({'name': track['name'], 'artists': artists, 'album': track['album']['name'], 'popularity': track['popularity'], 'duration': track['duration_ms'], 'genres': artistGenres[track['artists'][0]['id']], 'url': track['external_urls']['spotify']})
 for song in songs:
-    print song['name']
-    print song['genres']
-    print "\n"
+    print(song['name'])
+    print(song['genres'])
+    print("\n")
