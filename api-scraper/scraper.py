@@ -42,6 +42,7 @@ class Song(Model):
         database = db
 #Song.create_table(True);
 while (current < end):
+    print("at beginning of loop!")
     results = spotify.search(q='track:' + '', limit=end, offset=current, type='track')
     tracks = results['tracks']
     items = tracks['items']
