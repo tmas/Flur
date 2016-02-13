@@ -59,9 +59,9 @@ while (current < end):
         if not artistGenres[track['artists'][0]['id']] == '':
             songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
             songtest.save();
-            print("saved song with artistGenres: ", artistGenres)
+            print("saved song with artistGenres: ", artistGenres[track['artists'][0]['id']])
         else:
-            print("didn't save song with artistGenres: ", artistGenres)
+            print("didn't save song with artistGenres: ", artistGenres[track['artists'][0]['id']])
     current += update
     print("Appended ", update, "songs!")
     time.sleep(delay)
