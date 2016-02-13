@@ -17,7 +17,7 @@ class Song(Model):
 
     class Meta:
         database = db
-db.create_tables(Song);
+Song.create_table();
 results = spotify.search(q='track:' + '', limit=1, offset=0, type='track')
 tracks = results['tracks']
 items = tracks['items']
