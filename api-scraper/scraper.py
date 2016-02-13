@@ -5,7 +5,7 @@ spotify = spotipy.Spotify()
 songs = []
 artistGenres = {}
 
-db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",db="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
+db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
 class Song(Model):
     name=CharField()
     artists=CharField()
