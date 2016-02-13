@@ -4,7 +4,36 @@ import pymysql.cursors
 import time
 spotify = spotipy.Spotify()
 artistGenres = {}
-n = 250
+current = 0
+end = 0
+update = 50
+delay = 5
+if(sys.argv==2)
+{
+    current=argv[1]
+    end = argv[2]
+    update = 50
+    delay = 5
+    }
+else if(sys.argv==3)
+{
+    current = argv[1]
+    end = argv[2]
+    update = argv[3]
+    delay = 5
+    }
+else if(sys.argv==4)
+{
+    current = argv[1]
+    end = argv[2]
+    update = argv[3]
+    delay = argv[4]
+    }
+else
+{
+print("Invalid number of arguments. Please try again.")
+    }
+
 
 db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
 class Song(Model):
@@ -19,8 +48,8 @@ class Song(Model):
     class Meta:
         database = db
 #Song.create_table(True);
-while (n < 500):
-    results = spotify.search(q='track:' + '', limit=50, offset=n, type='track')
+while (current < end):
+    results = spotify.search(q='track:' + '', limit=end, offset=current, type='track')
     tracks = results['tracks']
     items = tracks['items']
     for track in items:
@@ -36,5 +65,5 @@ while (n < 500):
             artistGenres[track['artists'][0]['id']] = artistGenres[track['artists'][0]['id']].rstrip(", ")
         songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
         print("Appended ", songtest.save(), "songs!")
-    n += 50
-    time.sleep(5)
+    current += update
+    time.sleep(delay)
