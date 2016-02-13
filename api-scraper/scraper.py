@@ -41,7 +41,7 @@ class Song(Model):
         database = db
 #Song.create_table(True);
 while (current < end):
-    results = spotify.search(q='track:' + '', limit=end, offset=current, type='track')
+    results = spotify.search(q='track:' + '', limit=update, offset=current, type='track')
     tracks = results['tracks']
     items = tracks['items']
     for track in items:
