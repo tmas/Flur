@@ -4,7 +4,7 @@ import pymysql.cursors
 import time
 import sys
 spotify = spotipy.Spotify()
-db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
+db = MySQLDatabase(host="localhost",user="flur",password="KirklandSignature",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
 class Song(Model):
     name=CharField()
     artists=CharField()
@@ -17,6 +17,5 @@ class Song(Model):
     class Meta:
         database = db
 #Song.create_table(True);
-for track in Song.select():
-    if "rock" in track.genres:
-        print(track.name, " is a rock song! Genres: ", genres)
+for track in Song.select().where(Song.genres.contains("rock")):
+    print(track.name, " is a rock song! Genres: ", track.genres)
