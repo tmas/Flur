@@ -19,4 +19,4 @@ class Song(Model):
 #Song.create_table(True);
 #for track in Song.select().where(Song.genres.contains("rock")):
 #    print(track.name, " is a rock song! Genres: ", track.genres)
-print(Song.select().where(Song.generes.contains("rock")))
+print(Song.select().where(Song.genres.contains("rock")))
