@@ -17,5 +17,6 @@ class Song(Model):
     class Meta:
         database = db
 #Song.create_table(True);
-for track in Song.select().where("rock" in Song.genres):
-    print(Song.name, " is a rock song! Genres: ", genres)
+for track in Song.select():
+    if "rock" in Song.genres:
+        print(Song.name, " is a rock song! Genres: ", genres)
