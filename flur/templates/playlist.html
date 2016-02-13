@@ -1,12 +1,27 @@
 <!DOCTYPE>
 <html>
-
+<title>Playlist</title>
 <head>
 
 </head>
 <body>
-{{ duration }}
-{{ genre }}
+
+<h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
+<br><br>
+{% a = 0 %}
+{% for i in list_of_ids: %}
+<h5>{{ a }}.</h5>
+<br>
+<p>{{ i['title'] }}</p>
+<p>{{ i['artist'] }}</p>
+<p>{{ i['album'] }}</p>
+<br><br>
+
+{% endfor %}
+
+
+
+
 </body>
 
 </html>
