@@ -74,7 +74,7 @@ def generate():
 	#method call?
 	ids = []
 	identification=""
-	return render_template('playlist.html', genre=genre, notgenre=notgenre source=source)
+	return render_template('playlist.html', genre=genre, notgenre=notgenre, source=source)
 
 
 if __name__== '__main__':
