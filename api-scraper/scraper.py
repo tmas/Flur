@@ -43,6 +43,7 @@ class Song(Model):
 start_time = time.time();
 while (current < end):
     results = spotify.search(q='track:' + '', limit=update, offset=current, type='track')
+    print(results, "\n\n\n")
     tracks = results['tracks']
     items = tracks['items']
     for track in items:
