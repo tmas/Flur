@@ -11,13 +11,19 @@ flur.jinja_env.add_extension('jinja2.ext.do')
 
 
 
+def safePlaytime(artstplytm, artist):
+	if artist in artstplytm.keys():
+		return artstplytm[artist]
+	else:
+		return 0
 
 	#returns ids of all the songs
-def getPlaylist(duration, g):
+def getPlaylist(duration, g, solubility=0.4):
 	genre = g
 	desired_length = duration
 	length = 0
 	playlist = []
+	artistplaytime = {}
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
 
@@ -31,12 +37,13 @@ def getPlaylist(duration, g):
 
 	while (length < desired_length):
 		rnd = random.randint(0, len(data)-1)
-		if not data[rnd]['url'] in playlist:
+		if (not data[rnd]['url'] in playlist) and ((float(safePlaytime(artistplaytime, data[rnd]['artists']) + data[rnd]['duration']) / float(duration)) < solubility):
 			playlist.append(data[rnd]['url'])
 			#print(data[rnd]['name'])
 			#identification = url[31:]
 			#ids.append(identification)
 			length += data[rnd]['duration']
+			artistplaytime[data[rnd]['artists']] += data[rnd]['duration']
 	print("Songs: ", playlist);
 	print("Duration: ", float(length)/3600000)
 	db.close()
