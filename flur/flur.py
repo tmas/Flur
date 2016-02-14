@@ -3,7 +3,7 @@ import pymysql.cursors
 from peewee import *
 import sys
 import random
-
+from string import Template
 
 flur = Flask(__name__)
 flur.jinja_env.add_extension('jinja2.ext.do')
@@ -11,21 +11,31 @@ flur.jinja_env.add_extension('jinja2.ext.do')
 
 
 
+def safePlaytime(artstplytm, artist):
+	if artist in artstplytm.keys():
+		return artstplytm[artist]
+	else:
+		return 0
 
 	#returns ids of all the songs
-def getPlaylist(duration, g):
+def getPlaylist(duration, g, pop_low, pop_up, ng, solubility=0.4):
 	genre = g
 	desired_length = duration
+	notgenre = ng
+	if not notgenre == "":
+		notgenre = "%"+ng+"%"
 	length = 0
 	playlist = []
+	artistplaytime = {}
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
-	#print("connected to database")
-	sql = "SELECT * FROM song WHERE INSTR(genres, %s) AND popularity >= 50 ORDER BY RAND()"
+	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND popularity >= '$pop_low' AND popularity <= '$pop_up' AND genres NOT LIKE '$notgenre' ORDER BY RAND()")
+	sql = s.substitute(genre=genre, pop_low=pop_low, pop_up=pop_up, notgenre=notgenre)
+	print(sql)
 
 	cursor = db.cursor()
 
-	cursor.execute(sql, genre)
+	cursor.execute(sql)
 
 	data = cursor.fetchall()
 	print("got data")
@@ -44,9 +54,10 @@ def getPlaylist(duration, g):
 	for song in data:
 		if length >= desired_length:
 			break
-		if not song['url'] in playlist:
+		if (not song['url'] in playlist) and ((float(safePlaytime(artistplaytime, song['artists']) + song['duration']) / float(desired_length)) < solubility):
 			playlist.append(song['url'])
 			length += song['duration']
+			artistplaytime[song['artists']] = safePlaytime(artistplaytime, song['artists']) + song['duration']
 	print("Songs: ", playlist);
 	print("Duration: ", float(length)/3600000)
 	db.close()
@@ -54,7 +65,7 @@ def getPlaylist(duration, g):
 
 @flur.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('index.html', genre="", source="", form=True)
 
 #@flur.route('/')
 #def playlist():
@@ -64,7 +75,11 @@ def index():
 def generate():
 	duration = request.form['duration']
 	genre = request.form['genre']
-	list_of_ids = getPlaylist(duration, genre)
+	popularity_lower = request.form['popularity-lower']
+	popularity_upper = request.form['popularity-upper']
+	notgenre = request.form['notgenre']
+	#exclusions = request.form['h8ers'].splitlines()
+	list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre)
 	source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 	for song in list_of_ids:
 		source = source + song[31:] + ","
@@ -72,7 +87,7 @@ def generate():
 	#method call?
 	ids = []
 	identification=""
-	return render_template('playlist.html', genre=genre, source=source)
+	return render_template('index.html', genre=genre, source=source, form=False, notgenre=notgenre)
 
 
 if __name__== '__main__':

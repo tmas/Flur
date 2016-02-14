@@ -6,3 +6,4 @@
 - spotipy
 - peewee
 - pymysql
+- Linkin Park
