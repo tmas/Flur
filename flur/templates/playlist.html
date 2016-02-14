@@ -14,7 +14,7 @@
 {% set source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:" %}
 {% for song in list_of_ids %}
 <p>one loop iteration: adding {{song}}, to {{source}}</p>
-{%	set source = source + song[31:] + "," %}
+{%	do source = source + song[31:] + "," %}
 <p>source before is: {{source}}</p>
 {% endfor %}
 <p>source after is: {{source}}</p>
