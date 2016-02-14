@@ -88,7 +88,7 @@ def getPlaylist(duration, g, pop_low, pop_up, ng, linkin, solubility=0.4):
 		print("Songs: ", playlist);
 		print("Duration: ", float(length)/3600000)
 		db.close()
-		return playlist
+	return playlist
 
 
 
