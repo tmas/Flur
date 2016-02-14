@@ -90,6 +90,8 @@ def getPlaylist(duration, g, pop_low, pop_up, ng, linkin, solubility=0.4):
 		db.close()
 		return playlist
 
+		
+		
 @flur.route('/')
 def index():
 	return render_template('index.html', genre="", source="", form=True)
@@ -97,6 +99,11 @@ def index():
 #@flur.route('/')
 #def playlist():
 #	return render_template('playlist.html')
+
+@flur.route('/linkin')
+def linkin():
+	return render_template('linkin.html', form=True)
+
 
 @flur.route('/generate', methods = ['POST'])
 def generate():
