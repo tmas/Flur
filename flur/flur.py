@@ -54,7 +54,7 @@ def generate():
 	genre = request.form['genre']
 	list_of_ids = getPlaylist(duration, genre)
 	#method call?
-	return render_template('playlist.html', genre, list_of_ids)
+	return render_template('playlist.html', genre=genre, list_of_ids=list_of_ids)
 
 
 if __name__== '__main__':
