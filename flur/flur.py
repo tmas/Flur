@@ -21,7 +21,7 @@ def getPlaylist(duration, g):
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
 	#print("connected to database")
-	sql = "SELECT * FROM song WHERE INSTR(genres, %s) AND popularity >= 50"
+	sql = "SELECT * FROM song WHERE INSTR(genres, %s) AND popularity >= 50 ORDER BY RAND()"
 
 	cursor = db.cursor()
 
@@ -29,15 +29,24 @@ def getPlaylist(duration, g):
 
 	data = cursor.fetchall()
 	print("got data")
-
-	while (length < desired_length):
-		rnd = random.randint(0, len(data)-1)
-		if not data[rnd]['url'] in playlist:
-			playlist.append(data[rnd]['url'])
-			#print(data[rnd]['name'])
-			#identification = url[31:]
-			#ids.append(identification)
-			length += data[rnd]['duration']
+	songsadded=0
+	#while (length < desired_length):
+	#	if (songsadded >= len(data)):
+	#		break
+	#	rnd = random.randint(0, len(data)-1)
+	#	if not data[rnd]['url'] in playlist:
+	#		playlist.append(data[rnd]['url'])
+	#		#print(data[rnd]['name'])
+	#		#identification = url[31:]
+	#		#ids.append(identification)
+	#		length += data[rnd]['duration']
+	#		songsadded += 1
+	for song in data:
+		if length >= desired_length:
+			break
+		if not song['url'] in playlist:
+			playlist.append(song['url'])
+			length += song['duration']
 	print("Songs: ", playlist);
 	print("Duration: ", float(length)/3600000)
 	db.close()
