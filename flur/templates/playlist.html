@@ -17,10 +17,10 @@
 <h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
 <br /><br />
 
-{% source = "https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:" %}
+{% set source = "https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:" %}
 {% for s in list_of_ids %}
-{% 	identification = url[31:] %}
-{%	source = source + identification + "," %}
+{% 	set identification = url[31:] %}
+{%	set source = source + identification + "," %}
 {% endfor %}
 
 <iframe src={{source}} frameborder = "0" allowtransparency = "true"></iframe>
