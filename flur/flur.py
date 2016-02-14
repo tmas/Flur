@@ -29,7 +29,7 @@ def getPlaylist(duration, g):
 	data = cursor.fetchall()
 
 	while (length < desired_length):
-		rnd = random.randint(0, len(data))
+		rnd = random.randint(0, len(data)-1)
 		if not data[rnd]['url'] in playlist:
 			playlist.append(data[rnd]['url'])
 			#identification = url[31:]
