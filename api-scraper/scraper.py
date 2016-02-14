@@ -4,12 +4,24 @@ import pymysql.cursors
 import time
 import sys
 import pygn
+clientID="1695637605-13D16BA47C77E34A73018ADC06BC3E36"
+userID="26272556248669065-86D2A24F94C0BE016245F5E28DBD28C6"
 spotify = spotipy.Spotify()
 artistGenres = {}
 start = 0
 end = 0
 update = 50
 delay = 5
+
+def gnGenre(track):
+    genres=""
+    result = pygn.search(clientID=clientID, userID=userID, album=track['album'], track=track['name'])
+    for gen in result['genre']:
+        genres += result['genre'][gen]['TEXT']
+        genres += ", "
+    genres = genres.rstrip(", ");
+    return genres
+
 if(len(sys.argv)==3):
     start=int(sys.argv[1])
     end = int(sys.argv[2])
@@ -57,6 +69,8 @@ while (current < end):
             for genre in artistResult['genres']:
                 artistGenres[track['artists'][0]['id']] += genre + ", "
             artistGenres[track['artists'][0]['id']] = artistGenres[track['artists'][0]['id']].rstrip(", ")
+            if artistGenres[track['artists'][0]['id']] == '':
+                artistGenres[track['artists'][0]['id']] = gnGenre(track)
         if not artistGenres[track['artists'][0]['id']] == '':
             songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
             songtest.save();
