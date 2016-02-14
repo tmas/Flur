@@ -6,8 +6,8 @@
 </head>
 <body>
 {% for song in list_of_ids %}
-{% 	do identification = song[31:] %}
-{%	do ids.append(identification) %}
+{% 	identification = song[31:] %}
+{%	ids.append(identification) %}
 {% endfor %}
 
 <h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
@@ -15,8 +15,8 @@
 
 {% source = "https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:" %}
 {% for s in list_of_ids %}
-{% 	do identification = url[31:] %}
-{%	do source = source + identification + "," %}
+{% 	identification = url[31:] %}
+{%	source = source + identification + "," %}
 {% endfor %}
 
 <iframe src={{source}} frameborder = "0" allowtransparency = "true"></iframe>
