@@ -20,7 +20,7 @@ def getPlaylist(duration, g):
 	playlist = []
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
-	print("connected to database")
+	#print("connected to database")
 	sql = "SELECT * FROM song WHERE INSTR(genres, %s) AND popularity >= 50"
 
 	cursor = db.cursor()
