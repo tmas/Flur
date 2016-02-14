@@ -84,6 +84,7 @@
 
   <div id="video-container" class="header-unit">
       <div id="container">
+	  {% if form==True %}
     <center><form action="/generate" method="post">
       <br><br><br>
       <h1>Duration:</h1>
@@ -92,6 +93,11 @@
       <br><a class="btn btn-embossed btn-danger" href="index.html" role="button" style="background-color:#961b20; border-color:#961b20;color:#fff">Normal Mode</a><br><br>
 	  <input type="hidden" name="page" value="linkin"></input>
     </form></center>
+	{% endif %}
+	
+	{% if form == False %}
+		<center><iframe width="320px" height="400px" src={{source}} frameborder = "0" allowtransparency = "true"></iframe></center>
+	{% endif %}
       </div>
     </div>
   <!-- /.container -->
