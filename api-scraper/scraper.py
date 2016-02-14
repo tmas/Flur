@@ -41,7 +41,7 @@ else:
     print("Invalid number of arguments. Please try again.")
 current = start
 db = MySQLDatabase(host="localhost",user="root",password="M1ddl30ut!",database="flur",charset="utf8mb4",cursorclass=pymysql.cursors.DictCursor)
-class Song(Model):
+class BetterSong(Model):
     name=CharField()
     artists=CharField()
     album=CharField()
@@ -52,7 +52,7 @@ class Song(Model):
 
     class Meta:
         database = db
-#Song.create_table(True);
+BetterSong.create_table(True);
 start_time = time.time();
 while (current < end):
     results = spotify.search(q='track:' + '', limit=update, offset=current, type='track')
@@ -72,7 +72,7 @@ while (current < end):
             if artistGenres[track['artists'][0]['id']] == '':
                 artistGenres[track['artists'][0]['id']] = gnGenre(track)
         if not artistGenres[track['artists'][0]['id']] == '':
-            songtest = Song(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
+            songtest = BetterSong(name=track['name'],artists=artists,album=track['album']['name'],popularity=track['popularity'],duration=track['duration_ms'],genres=artistGenres[track['artists'][0]['id']],url=track['external_urls']['spotify'])
             songtest.save();
             print("saved song with artistGenres: ", artistGenres[track['artists'][0]['id']])
         #else:
