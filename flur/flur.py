@@ -32,8 +32,6 @@ def getPlaylist(duration, g):
 		rnd = random.randint(0, len(data))
 		if not data[rnd]['url'] in playlist:
 			playlist.append(data[rnd]['url'])
-			#identification = url[31:]
-			#ids.append(identification)
 			length += data[rnd]['duration']
 	print("Songs: ", playlist);
 	print("Duration: ", float(length)/3600000)
