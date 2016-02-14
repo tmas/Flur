@@ -113,7 +113,6 @@ def generate():
 	if(pageType=="linkin"):
 		duration = request.form['duration']
 		linkin = True
-		render_template('index.html', genre="", source=source, form=False, notgenre="")
 		genre=""
 		popularity_lower=0
 		popularity_upper=0
@@ -122,6 +121,7 @@ def generate():
 		for song in list_of_ids:
 			source = source + song[31:] + ","
 		source = source.rstrip(",")
+		return render_template('linkin.html', genre="", source=source, form=False, notgenre="")
 	else:
 		duration = request.form['duration']
 		genre = request.form['genre']
