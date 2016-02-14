@@ -3,7 +3,7 @@ import pymysql.cursors
 from peewee import *
 import sys
 import random
-
+from string import Template
 
 flur = Flask(__name__)
 flur.jinja_env.add_extension('jinja2.ext.do')
@@ -22,11 +22,12 @@ def getPlaylist(duration, g, ng):
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
 	#print("connected to database")
-	sql = "SELECT * FROM song WHERE INSTR(genres, %s) AND genres NOT LIKE %s AND popularity >= 50 ORDER BY RAND()"
+	s = Template("SELECT * FROM song WHERE INSTR(genres, $genre) AND genres NOT LIKE $notgenre AND popularity >= 50 ORDER BY RAND()")
+	sql = s.substitute(genre=genre, notgenre=notgenre)
 
 	cursor = db.cursor()
 
-	cursor.execute(sql, genre, notgenre)
+	cursor.execute(sql)
 
 	data = cursor.fetchall()
 	print("got data")
