@@ -109,6 +109,7 @@ def linkin():
 def generate():
 	linkin = False
 	pageType = request.form['page']
+	source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 	if(pageType=="linkin"):
 		duration = request.form['duration']
 		linkin = True
@@ -118,6 +119,9 @@ def generate():
 		popularity_upper=0
 		notgenre=""
 		list_of_ids = getPlayList(duration, genre, popularity_lower, popularity_upper, notgenre, linkin)
+		for song in list_of_ids:
+			source = source + song[31:] + ","
+		source = source.rstrip(",")
 	else:
 		duration = request.form['duration']
 		genre = request.form['genre']
@@ -126,7 +130,6 @@ def generate():
 		notgenre = request.form['notgenre']
 		#exclusions = request.form['h8ers'].spl	itlines()
 		list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre, linkin)
-		source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 		for song in list_of_ids:
 			source = source + song[31:] + ","
 		source = source.rstrip(",")
