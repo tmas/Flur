@@ -44,7 +44,7 @@ def getPlaylist(duration, g, pop_low, pop_up, exclusions):
 
 @flur.route('/')
 def index():
-	return render_template('/', genre="", source="", form=True)
+	return render_template('index.html', genre="", source="", form=True)
 
 #@flur.route('/')
 #def playlist():
