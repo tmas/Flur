@@ -9,8 +9,16 @@ flur = Flask(__name__)
 flur.jinja_env.add_extension('jinja2.ext.do')
 
 
+
+
+def safePlaytime(artstplytm, artist):
+	if artist in artstplytm.keys():
+		return artstplytm[artist]
+	else:
+		return 0
+
 	#returns ids of all the songs
-def getPlaylist(duration, g, pop_low, pop_up, ng):
+def getPlaylist(duration, g, pop_low, pop_up, ng, solubility=0.4):
 	genre = g
 	desired_length = duration
 	notgenre = ng
@@ -18,6 +26,7 @@ def getPlaylist(duration, g, pop_low, pop_up, ng):
 		notgenre = "%"+ng+"%"
 	length = 0
 	playlist = []
+	artistplaytime = {}
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
 	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND popularity >= '$pop_low' AND popularity <= '$pop_up' AND genres NOT LIKE '$notgenre' ORDER BY RAND()")
@@ -44,7 +53,7 @@ def getPlaylist(duration, g, pop_low, pop_up, ng):
 	for song in data:
 		if length >= desired_length:
 			break
-		if not song['url'] in playlist:
+		if not song['url'] in playlist and ((float(safePlaytime(artistplaytime, song['artists']) + song['duration']) / float(duration)) < solubility):
 			playlist.append(song['url'])
 			length += song['duration']
 	print("Songs: ", playlist);
