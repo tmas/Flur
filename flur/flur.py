@@ -56,7 +56,7 @@ def generate():
 	genre = request.form['genre']
 	popularity_lower = request.form['popularity-lower']
 	popularity_upper = request.form['popularity-upper']
-	exclusions = request.form['h8ers'].splitlines()
+	#exclusions = request.form['h8ers'].splitlines()
 	list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, exclusions)
 	source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 	for song in list_of_ids:
