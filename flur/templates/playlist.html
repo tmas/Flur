@@ -5,24 +5,13 @@
 
 </head>
 <body>
-{% ids = [] %}
 {% for song in list_of_ids %}
-{% 	identification = song[31:]
+{% 	identification = song[31:] %}
 {%	ids.append(identification) %}
-
+{% endfor %}
 
 <h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
-<br><br>
-{% a = 0 %}
-{% for i in list_of_ids: %}
-<h5>{{ a }}.</h5>
-<br>
-<p>{{ i['title'] }}</p>
-<p>{{ i['artist'] }}</p>
-<p>{{ i['album'] }}</p>
-<br><br>
-
-{% endfor %}
+<br /><br />
 
 {% source = "https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:" %}
 {% for s in list_of_ids %}
