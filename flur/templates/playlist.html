@@ -7,7 +7,7 @@
 <body>
 {% for song in list_of_ids %}
 {% 	set identification = song[31:] %}
-{%	ids.append(song[31:]) %}
+{%	do ids.append(song[31:]) %}
 {% endfor %}
 
 <h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
