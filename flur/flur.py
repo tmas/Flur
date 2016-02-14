@@ -18,7 +18,7 @@ def safePlaytime(artstplytm, artist):
 		return 0
 
 	#returns ids of all the songs
-def getPlaylist(duration, g, pop_low, pop_up, ng, solubility=0.4, linkin):
+def getPlaylist(duration, g, pop_low, pop_up, ng, linkin, solubility=0.4):
 	if not linkin:
 		genre = g
 		desired_length = duration
