@@ -3,29 +3,30 @@ import pymysql.cursors
 from peewee import *
 import sys
 import random
-
+from string import Template
 
 flur = Flask(__name__)
 flur.jinja_env.add_extension('jinja2.ext.do')
 
 
-
-
-
 	#returns ids of all the songs
-def getPlaylist(duration, g):
+def getPlaylist(duration, g, ng):
 	genre = g
 	desired_length = duration
+	notgenre = ng
+	if not notgenre == "":
+		notgenre = "%"+ng+"%"
 	length = 0
 	playlist = []
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
 	#print("connected to database")
-	sql = "SELECT * FROM song WHERE INSTR(genres, %s) AND popularity >= 50 ORDER BY RAND()"
+	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND genres NOT LIKE '$notgenre' AND popularity >= 50 ORDER BY RAND()")
+	sql = s.substitute(genre=genre, notgenre=notgenre)
 
 	cursor = db.cursor()
 
-	cursor.execute(sql, genre)
+	cursor.execute(sql)
 
 	data = cursor.fetchall()
 	print("got data")
@@ -64,7 +65,8 @@ def index():
 def generate():
 	duration = request.form['duration']
 	genre = request.form['genre']
-	list_of_ids = getPlaylist(duration, genre)
+	notgenre = request.form['notgenre']
+	list_of_ids = getPlaylist(duration, genre, notgenre)
 	source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 	for song in list_of_ids:
 		source = source + song[31:] + ","
@@ -72,7 +74,7 @@ def generate():
 	#method call?
 	ids = []
 	identification=""
-	return render_template('playlist.html', genre=genre, source=source)
+	return render_template('playlist.html', genre=genre, notgenre=notgenre, source=source)
 
 
 if __name__== '__main__':
