@@ -21,7 +21,7 @@ def getPlaylist(duration, g, pop_low, pop_up):
 	playlist = []
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
-	s = Template("SELECT * FROM song WHERE INSTR(genres, $genre) AND popularity >= $pop_low AND popularity <= $pop_up")
+	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND popularity >= '$pop_low' AND popularity <= '$pop_up'")
 	sql = s.substitute(genre=genre, pop_low=pop_low, pop_up=pop_up)
 
 	cursor = db.cursor()
