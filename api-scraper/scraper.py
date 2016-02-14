@@ -52,7 +52,7 @@ class BetterSong(Model):
 
     class Meta:
         database = db
-BetterSong.create_table(True);
+#BetterSong.create_table(True);
 start_time = time.time();
 while (current < end):
     results = spotify.search(q='track:' + '', limit=update, offset=current, type='track')
