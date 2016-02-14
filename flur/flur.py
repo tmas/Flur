@@ -4,7 +4,7 @@ from peewee import *
 import sys
 import random
 
-
+jinja_env = Environment(extensions=['jinja2.ext.do'])
 flur = Flask(__name__)
 
 
