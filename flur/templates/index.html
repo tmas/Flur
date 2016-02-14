@@ -122,7 +122,7 @@
 	</div>
 
 	<div id="video-container" class="header-unit">
-      <div id="container">
+      <div id="container" height = "400px">
 	  
 	  
 		{% if form == True %}
@@ -139,6 +139,8 @@
 			<input color="black" type="submit" value="Submit"></input>
 		</form></center>
 		{% endif %}
+		
+		
 		{% if form == False %}
 		<center><iframe width="100%" height="100%" src={{source}} frameborder = "0" allowtransparency = "true"></iframe></center>
 		{% endif %}
