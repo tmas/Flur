@@ -9,15 +9,12 @@ flur = Flask(__name__)
 flur.jinja_env.add_extension('jinja2.ext.do')
 
 
-
-
-
 	#returns ids of all the songs
 def getPlaylist(duration, g, ng):
 	genre = g
 	desired_length = duration
 	notgenre = ng
-	if not notgenre == ""
+	if not notgenre == "":
 		notgenre = "%"+ng+"%"
 	length = 0
 	playlist = []
