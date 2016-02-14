@@ -6,19 +6,15 @@
 </head>
 <body>
 {% for song in list_of_ids %}
-<<<<<<< HEAD
-{%	ids.append(song[31:]) %}
-=======
 {% 	set identification = song[31:] %}
 {%	do ids.append(song[31:]) %}
->>>>>>> e5f5d9530eff998fcae8a5330ccabe962c2c728d
 {% endfor %}
 
 <h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
 <br /><br />
 
 {% set source = "https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:" %}
-{% for s in list_of_ids %}
+{% for s in ids %}
 {%	set source = source + s + "," %}
 {% endfor %}
 
