@@ -123,6 +123,9 @@
 
 	<div id="video-container" class="header-unit">
       <div id="container">
+	  
+	  
+		{% if form == True %}
 		<center><form action="/generate" method="post">
 			<h1>Please enter the duration (hours).</h1>
 			<input type="number" step="0.01" name="duration" alt="Duration"></input>
@@ -131,6 +134,12 @@
 			<br>
 			<input color="black" type="submit" value="Submit"></input>
 		</form></center>
+		{% endif %}
+		{% if form == False %}
+		<iframe src={{source}} frameborder = "0" allowtransparency = "true"></iframe>
+		{% endif %}
+		
+		
       </div>
     </div>
   <!-- /.container -->

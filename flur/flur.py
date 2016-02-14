@@ -45,7 +45,7 @@ def getPlaylist(duration, g):
 
 @flur.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('index.html', genre="", source="", form=True)
 
 #@flur.route('/')
 #def playlist():
@@ -62,7 +62,7 @@ def generate():
 	#method call?
 	ids = []
 	identification=""
-	return render_template('playlist.html', genre=genre, source=source)
+	return render_template('index.html', genre=genre, source=source, form=False)
 
 
 if __name__== '__main__':
