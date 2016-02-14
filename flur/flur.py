@@ -3,6 +3,7 @@ import pymysql.cursors
 from peewee import *
 import sys
 import random
+from string import Template
 
 
 flur = Flask(__name__)
@@ -20,12 +21,12 @@ def getPlaylist(duration, g, pop_low, pop_up):
 	playlist = []
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
-
-	sql = "SELECT * FROM song WHERE INSTR(genres, %s) AND popularity >= %s AND popularity <= %s"
+	s = Template("SELECT * FROM song WHERE INSTR(genres, $genre) AND popularity >= $pop_low AND popularity <= $pop_up")
+	sql = s.substitute(genre=genre, pop_low=pop_low, pop_up=pop_up)
 
 	cursor = db.cursor()
 
-	cursor.execute(sql, genre, pop_low, pop_up)
+	cursor.execute(sql)
 
 	data = cursor.fetchall()
 
