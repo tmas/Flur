@@ -31,7 +31,6 @@ while (length < desired_length):
     rnd = random.randint(0, len(data))
     if not data[rnd]['url'] in playlist:
         playlist.append(data[rnd]['url'])
-        getURL(data[rnd]['url]
         length += data[rnd]['duration']
 print("Songs: ", playlist);
 print("Duration: ", float(length)/3600000)
