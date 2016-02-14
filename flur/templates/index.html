@@ -122,17 +122,31 @@
 	</div>
 
 	<div id="video-container" class="header-unit">
-      <div id="container">
+      <div id="container" height = "400px">
+
+
+		{% if form == True %}
 		<center><form action="/generate" method="post">
 			<h1>Duration:</h1>
 			<input type="number" step="0.01" name="duration" alt="Duration"></input><span style="font-size:24px;"> Hours</span>
 			<h1>Genre:</h1>
 			<input type="text" name="genre" alt="Genre"></input>
+			<h1>Please enter the lower bound of the song's popularity rating.</h1>
+			<input type="number" step = "1" name = "popularity-lower"></input>
+			<h1>Please enter the upper bound of the song's popularity rating.</h1>
+			<input type="number" step="1" name="popularity-upper"></input>
       <h1>Please enter genres you wish to exclude.</h1>
       <input type="text" name="notgenre" alt = "NotGenre"></input>
 			<br>
 			<br><br><input color="black" type="submit" value="Submit"></input><br><br>
 		</form></center>
+		{% endif %}
+
+		{% if form == False %}
+		<center><iframe width="100%" height="100%" src={{source}} frameborder = "0" allowtransparency = "true"></iframe></center>
+		{% endif %}
+
+
       </div>
     </div>
   <!-- /.container -->

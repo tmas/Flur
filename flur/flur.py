@@ -10,7 +10,7 @@ flur.jinja_env.add_extension('jinja2.ext.do')
 
 
 	#returns ids of all the songs
-def getPlaylist(duration, g, ng):
+def getPlaylist(duration, g, pop_low, pop_up, ng):
 	genre = g
 	desired_length = duration
 	notgenre = ng
@@ -20,9 +20,8 @@ def getPlaylist(duration, g, ng):
 	playlist = []
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
-	#print("connected to database")
-	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND genres NOT LIKE '$notgenre' AND popularity >= 50 ORDER BY RAND()")
-	sql = s.substitute(genre=genre, notgenre=notgenre)
+	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND popularity >= '$pop_low' AND popularity <= '$pop_up' AND genres NOT LIKE '$notgenre' ORDER BY RAND()")
+	sql = s.substitute(genre=genre, pop_low=pop_low, pop_up=pop_up, notgenre=notgenre)
 
 	cursor = db.cursor()
 
@@ -55,7 +54,7 @@ def getPlaylist(duration, g, ng):
 
 @flur.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('index.html', genre="", source="", form=True)
 
 #@flur.route('/')
 #def playlist():
@@ -65,8 +64,11 @@ def index():
 def generate():
 	duration = request.form['duration']
 	genre = request.form['genre']
+	popularity_lower = request.form['popularity-lower']
+	popularity_upper = request.form['popularity-upper']
 	notgenre = request.form['notgenre']
-	list_of_ids = getPlaylist(duration, genre, notgenre)
+	#exclusions = request.form['h8ers'].splitlines()
+	list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre)
 	source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 	for song in list_of_ids:
 		source = source + song[31:] + ","
@@ -74,7 +76,7 @@ def generate():
 	#method call?
 	ids = []
 	identification=""
-	return render_template('playlist.html', genre=genre, notgenre=notgenre, source=source)
+	return render_template('index.html', genre=genre, source=source, form=False, notgenre=notgenre)
 
 
 if __name__== '__main__':
