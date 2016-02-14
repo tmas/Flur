@@ -55,7 +55,8 @@ def generate():
 	list_of_ids = getPlaylist(duration, genre)
 	#method call?
 	ids = []
-	return render_template('playlist.html', genre=genre, list_of_ids=list_of_ids, ids=ids)
+	identification=""
+	return render_template('playlist.html', genre=genre, list_of_ids=list_of_ids, ids=ids, identification=identification)
 
 
 if __name__== '__main__':
