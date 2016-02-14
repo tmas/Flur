@@ -5,17 +5,15 @@
 
 </head>
 <body>
-{% for song in list_of_ids %}
-{% 	set identification = song[31:] %}
-{%	do ids.append(song[31:]) %}
-{% endfor %}
+
 
 <h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
 <br /><br />
 
-{% set source = "https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:" %}
-{% for s in ids %}
-{%	set source = source + s + "," %}
+{% set source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:" %}
+{% for song in list_of_ids %}
+{%	set source = source + song[31:] + "," %}
+{%  set source = source.rstrip(",") %}
 {% endfor %}
 
 <iframe src={{source}} frameborder = "0" allowtransparency = "true"></iframe>
