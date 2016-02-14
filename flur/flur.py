@@ -118,7 +118,7 @@ def generate():
 		popularity_upper = request.form['popularity-upper']
 		notgenre = request.form['notgenre']
 		#exclusions = request.form['h8ers'].spl	itlines()
-		list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre linkin)
+		list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre, linkin)
 		source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 		for song in list_of_ids:
 			source = source + song[31:] + ","
