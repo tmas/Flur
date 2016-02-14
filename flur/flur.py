@@ -43,26 +43,19 @@ def getPlaylist(duration, g):
 @flur.route('/')
 def index():
 	return render_template('index.html')
-	
+
 #@flur.route('/')
 #def playlist():
 #	return render_template('playlist.html')
-	
+
 @flur.route('/generate', methods = ['POST'])
-def generate():	
+def generate():
 	duration = request.form['duration']
 	genre = request.form['genre']
 	list_of_ids = getPlaylist(duration, genre)
 	#method call?
 	return render_template('playlist.html', genre, list_of_ids, )
-	
-	
+
+
 if __name__== '__main__':
-	flur.run(debug=True)
-	
-	
-
-
-
-	
-
+	flur.run(debug=True,host="162.243.5.44",port=80)
