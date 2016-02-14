@@ -18,7 +18,7 @@ def safePlaytime(artstplytm, artist):
 		return 0
 
 	#returns ids of all the songs
-def getPlaylist(duration, g, pop_low, pop_up, ng, solubility=0.4):
+def getPlaylist(duration, g, pop_low, pop_up, ng, solubility=0.4, linkin):
 	genre = g
 	desired_length = duration
 	notgenre = ng
@@ -73,21 +73,33 @@ def index():
 
 @flur.route('/generate', methods = ['POST'])
 def generate():
-	duration = request.form['duration']
-	genre = request.form['genre']
-	popularity_lower = request.form['popularity-lower']
-	popularity_upper = request.form['popularity-upper']
-	notgenre = request.form['notgenre']
-	#exclusions = request.form['h8ers'].splitlines()
-	list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre)
-	source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
-	for song in list_of_ids:
-		source = source + song[31:] + ","
-	source = source.rstrip(",")
-	#method call?
-	ids = []
-	identification=""
-	return render_template('index.html', genre=genre, source=source, form=False, notgenre=notgenre)
+	linkin = False
+	pageType = request.form['page']
+	if(pageType=="linkin"):
+		duration = request.form['duration]
+		linkin = True
+		render_template('index.html', genre=genre, source=source, form=False, notgenre=notgenre)
+		genre=""
+		popularity_lower=0
+		popularity_upper=0
+		notgenre=""
+		list_of_ids = getPlayList(duration, genre, popularity_lower, popularity_upper, notgenre, linkin)
+	else:
+		duration = request.form['duration']
+		genre = request.form['genre']
+		popularity_lower = request.form['popularity-lower']
+		popularity_upper = request.form['popularity-upper']
+		notgenre = request.form['notgenre']
+		#exclusions = request.form['h8ers'].spl	itlines()
+		list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre linkin)
+		source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
+		for song in list_of_ids:
+			source = source + song[31:] + ","
+		source = source.rstrip(",")
+		#method call?
+		ids = []
+		identification=""
+		return render_template('index.html', genre=genre, source=source, form=False, notgenre=notgenre)
 
 
 if __name__== '__main__':
