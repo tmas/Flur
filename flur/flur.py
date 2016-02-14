@@ -17,12 +17,14 @@ def getPlaylist(duration, g, ng):
 	genre = g
 	desired_length = duration
 	notgenre = ng
+	if not notgenre == ""
+		notgenre = "%"+ng+"%"
 	length = 0
 	playlist = []
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
 	#print("connected to database")
-	s = Template("SELECT * FROM song WHERE INSTR(genres, $genre) AND genres NOT LIKE $notgenre AND popularity >= 50 ORDER BY RAND()")
+	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND genres NOT LIKE '$notgenre' AND popularity >= 50 ORDER BY RAND()")
 	sql = s.substitute(genre=genre, notgenre=notgenre)
 
 	cursor = db.cursor()
