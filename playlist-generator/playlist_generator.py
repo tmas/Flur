@@ -7,6 +7,7 @@ genre = "rock"
 desired_length = 1.0
 length = 0
 playlist = []
+ids = []
 if(len(sys.argv)==2):
     genre=sys.argv[1]
 elif(len(sys.argv)==3):
@@ -30,7 +31,15 @@ while (length < desired_length):
     rnd = random.randint(0, len(data))
     if not data[rnd]['url'] in playlist:
         playlist.append(data[rnd]['url'])
+        getURL(data[rnd]['url]
         length += data[rnd]['duration']
 print("Songs: ", playlist);
 print("Duration: ", float(length)/3600000)
 db.close()
+
+
+def getURL(url)
+{
+    identification = url[31:]
+    ids.append(identification)
+}
