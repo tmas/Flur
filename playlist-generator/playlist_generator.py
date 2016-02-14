@@ -37,8 +37,6 @@ print("Duration: ", float(length)/3600000)
 db.close()
 
 
-def getURL(url)
-{
-    identification = url[31:]
-    ids.append(identification)
-}
+#def getURL(url):
+#    identification = url[31:]
+#    ids.append(identification)
