@@ -118,7 +118,7 @@ def generate():
 		popularity_lower=0
 		popularity_upper=0
 		notgenre=""
-		list_of_ids = getPlayList(duration, genre, popularity_lower, popularity_upper, notgenre, linkin)
+		list_of_ids = getPlaylist(duration, genre, popularity_lower, popularity_upper, notgenre, linkin)
 		for song in list_of_ids:
 			source = source + song[31:] + ","
 		source = source.rstrip(",")
