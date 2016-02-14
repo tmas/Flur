@@ -15,7 +15,7 @@ delay = 5
 
 def gnGenre(track):
     genres=""
-    result = pygn.search(clientID=clientID, userID=userID, album=track['album'], track=track['name'])
+    result = pygn.search(clientID=clientID, userID=userID, album=track['album']['name'], track=track['name'])
     for gen in result['genre']:
         genres += result['genre'][gen]['TEXT']
         genres += ", "
