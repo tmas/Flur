@@ -7,7 +7,6 @@ import random
 
 flur = Flask(__name__)
 flur.jinja_env.add_extension('jinja2.ext.do')
-source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 
 
 
@@ -56,6 +55,7 @@ def generate():
 	duration = request.form['duration']
 	genre = request.form['genre']
 	list_of_ids = getPlaylist(duration, genre)
+	source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:"
 	for song in list_of_ids:
 		source = source + song[31:] + ","
 	source = source.rstrip(",")
