@@ -113,7 +113,7 @@ def generate():
 	if(pageType=="linkin"):
 		duration = request.form['duration']
 		linkin = True
-		render_template('index.html', genre="", source=source, form=False, notgenre=notgenre)
+		render_template('index.html', genre="", source=source, form=False, notgenre="")
 		genre=""
 		popularity_lower=0
 		popularity_upper=0
