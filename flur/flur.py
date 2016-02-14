@@ -6,6 +6,7 @@ import random
 
 
 flur = Flask(__name__)
+flur.jinja_env.add_extension('jinja2.ext.do')
 
 
 
@@ -27,18 +28,18 @@ def getPlaylist(duration, g):
 	cursor.execute(sql, genre)
 
 	data = cursor.fetchall()
-	id = []
+
 	while (length < desired_length):
 		rnd = random.randint(0, len(data)-1)
 		if not data[rnd]['url'] in playlist:
 			playlist.append(data[rnd]['url'])
-			identification = url[31:]
-			ids.append(identification)
+			#identification = url[31:]
+			#ids.append(identification)
 			length += data[rnd]['duration']
 	print("Songs: ", playlist);
 	print("Duration: ", float(length)/3600000)
 	db.close()
-	return ids
+	return playlist
 
 @flur.route('/')
 def index():
