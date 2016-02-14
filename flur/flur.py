@@ -54,9 +54,10 @@ def getPlaylist(duration, g, pop_low, pop_up, ng, solubility=0.4):
 	for song in data:
 		if length >= desired_length:
 			break
-		if not song['url'] in playlist: #and ((float(safePlaytime(artistplaytime, song['artists']) + song['duration']) / float(duration)) < solubility):
+		if (not song['url'] in playlist) and ((float(safePlaytime(artistplaytime, song['artists']) + song['duration']) / float(duration)) < solubility):
 			playlist.append(song['url'])
 			length += song['duration']
+			artistplaytime[song['artists']] += song['duration']
 	print("Songs: ", playlist);
 	print("Duration: ", float(length)/3600000)
 	db.close()
