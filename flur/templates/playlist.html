@@ -15,8 +15,8 @@
 {% for song in list_of_ids %}
 <p>one loop iteration: adding {{song}}, to {{source}}</p>
 {%	set source = source + song[31:] + "," %}
-{%  set source = source.rstrip(",") %}
 {% endfor %}
+{% set source = source.rstrip(",") %}
 
 <!---<iframe src={{source}} frameborder = "0" allowtransparency = "true"></iframe>--->
 
