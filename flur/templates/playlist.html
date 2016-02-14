@@ -6,12 +6,14 @@
 </head>
 <body>
 
+<p>{{list_of_ids}}</p>
 
 <h1>Here is your playlist filtered by the following genre: {{ genre }}</h1>
 <br /><br />
 
 {% set source = "https://embed.spotify.com/?uri=spotify:trackset:Flur:" %}
 {% for song in list_of_ids %}
+<p>one loop iteration</p>
 {%	set source = source + song[31:] + "," %}
 {%  set source = source.rstrip(",") %}
 {% endfor %}
