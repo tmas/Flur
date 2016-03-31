@@ -29,6 +29,7 @@ def getPlaylist(duration, g, pop_low, pop_up, ng, solubility=0.4):
 	artistplaytime = {}
 	desired_length = int(float(desired_length) * 3600000);
 	db = pymysql.connect(host="localhost", user="flur", password="KirklandSignature", db="flur", charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
+	# This is a test password and the server is configured to only accept MySQL connections from localhost, so don't even bother
 	s = Template("SELECT * FROM song WHERE INSTR(genres, '$genre') AND popularity >= '$pop_low' AND popularity <= '$pop_up' AND genres NOT LIKE '$notgenre' ORDER BY RAND()")
 	sql = s.substitute(genre=genre, pop_low=pop_low, pop_up=pop_up, notgenre=notgenre)
 	print(sql)
